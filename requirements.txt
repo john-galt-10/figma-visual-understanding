@@ -1,0 +1,14 @@
+# Shared image validation and metadata extraction.
+Pillow>=10.0.0
+
+# Configuration, validation, and Gemini multimodal query generation.
+pydantic>=2.0.0
+PyYAML>=6.0.0
+python-dotenv>=1.0.0
+google-genai>=1.0.0
+
+# OCR baselines. PaddlePaddle 3.3.x has a CPU oneDNN/PIR inference regression;
+# keep new environments on the latest known stable 3.2.x line.
+paddlepaddle>=3.2.0,<3.3.0
+paddleocr>=3.0.0
+easyocr>=1.7.2

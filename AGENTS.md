@@ -52,3 +52,4 @@ Guidelines:
 - Everytime you implement a script, present in the chat how to run it and the meaning of the CLI parameters. Also write a very short summary of the functioning (e.g., input, output, underlying mechanism).
 - Comment the code you write. I want a docstring for each class and function, if not obvious or self-explanatory.
 - Whenever adding new features or making significant changes, prompt me whether we should update the "Milestone recap" section in the README.md of the repo.
+- For every major feature, add a documentation .md file in docs/

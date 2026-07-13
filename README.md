@@ -94,6 +94,8 @@ The implementation philosophy is:
 
 * **2026-07-10: Repository initialization**  
   Created the initial README and defined the repository's role as the visual-understanding layer for the broader Figma assistant system.
+* **2026-07-13: OCR baseline**
+  Added a replaceable OCR interface, PaddleOCR and EasyOCR implementations, and a JSON inspection script for screenshot scans.
 
 ## Repository intent
 
