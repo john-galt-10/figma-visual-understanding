@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Non-default
+.vscode
+.agents
+screenshots_example/

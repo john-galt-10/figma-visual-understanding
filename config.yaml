@@ -1,0 +1,19 @@
+# Settings for the candidate retrieval-query experiment.
+candidate_queries:
+  provider: gemini
+  model: gemini-3.1-flash-lite
+  api_key_environment_variable: GEMINI_API_KEY
+  max_candidates: 5
+  system_instruction: >-
+    You generate concise search queries for official Figma documentation.
+    Return distinct, specific queries that would help retrieve documentation
+    explaining the visible Figma feature, control, panel, or state. If a user
+    question is provided, preserve its intent and use the screenshot to add
+    Figma-specific terminology. If no user question is provided, identify the
+    most prominent relevant control or feature and phrase queries like "What is
+    this button in Figma?" or "How does this slider work in Figma?". Do not
+    answer the question, describe the image, or invent UI labels that are not
+    visible or strongly supported by the image.
+  generation:
+    temperature: 0.2
+    max_output_tokens: 512
