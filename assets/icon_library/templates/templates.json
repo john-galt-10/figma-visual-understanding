@@ -1,0 +1,1064 @@
+{
+  "schema_version": "1.0",
+  "template_count": 46,
+  "templates": [
+    {
+      "label": "file thumbnail",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\left panel\\file thumbnail.png",
+      "glyph_bbox": {
+        "x": 5,
+        "y": 5,
+        "width": 12,
+        "height": 12
+      },
+      "crop_dimensions": {
+        "width": 12,
+        "height": 12
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 138,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\file thumbnail.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\file thumbnail.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\file thumbnail.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\file thumbnail.png"
+    },
+    {
+      "label": "image",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\left panel\\image.png",
+      "glyph_bbox": {
+        "x": 6,
+        "y": 7,
+        "width": 12,
+        "height": 12
+      },
+      "crop_dimensions": {
+        "width": 12,
+        "height": 12
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 130,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\image.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\image.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\image.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\image.png"
+    },
+    {
+      "label": "toggle layer locking",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\left panel\\toggle layer locking.png",
+      "glyph_bbox": {
+        "x": 4,
+        "y": 4,
+        "width": 10,
+        "height": 12
+      },
+      "crop_dimensions": {
+        "width": 10,
+        "height": 12
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 111,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\toggle layer locking.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\toggle layer locking.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\toggle layer locking.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\toggle layer locking.png"
+    },
+    {
+      "label": "add",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\add.png",
+      "glyph_bbox": {
+        "x": 5,
+        "y": 3,
+        "width": 13,
+        "height": 13
+      },
+      "crop_dimensions": {
+        "width": 13,
+        "height": 13
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 137,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\add.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\add.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\add.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\add.png"
+    },
+    {
+      "label": "apply blend mode",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\apply blend mode.png",
+      "glyph_bbox": {
+        "x": 20,
+        "y": 12,
+        "width": 40,
+        "height": 51
+      },
+      "crop_dimensions": {
+        "width": 40,
+        "height": 51
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 119,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\apply blend mode.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\apply blend mode.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\apply blend mode.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\apply blend mode.png"
+    },
+    {
+      "label": "apply styles and variables",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\apply styles and variables.png",
+      "glyph_bbox": {
+        "x": 32,
+        "y": 23,
+        "width": 48,
+        "height": 49
+      },
+      "crop_dimensions": {
+        "width": 48,
+        "height": 49
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 116,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\apply styles and variables.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\apply styles and variables.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\apply styles and variables.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\apply styles and variables.png"
+    },
+    {
+      "label": "create component",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\create component.png",
+      "glyph_bbox": {
+        "x": 11,
+        "y": 9,
+        "width": 18,
+        "height": 18
+      },
+      "crop_dimensions": {
+        "width": 18,
+        "height": 18
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 123,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\create component.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\create component.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\create component.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\create component.png"
+    },
+    {
+      "label": "edit object",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\edit object.png",
+      "glyph_bbox": {
+        "x": 5,
+        "y": 8,
+        "width": 14,
+        "height": 14
+      },
+      "crop_dimensions": {
+        "width": 14,
+        "height": 14
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 133,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\edit object.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\edit object.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\edit object.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\edit object.png"
+    },
+    {
+      "label": "align bottom",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\align bottom.png",
+      "glyph_bbox": {
+        "x": 11,
+        "y": 2,
+        "width": 9,
+        "height": 13
+      },
+      "crop_dimensions": {
+        "width": 9,
+        "height": 13
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 137,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\align bottom.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\align bottom.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\align bottom.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\align bottom.png"
+    },
+    {
+      "label": "align horizontal centers",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\align horizontal centers.png",
+      "glyph_bbox": {
+        "x": 6,
+        "y": 11,
+        "width": 14,
+        "height": 9
+      },
+      "crop_dimensions": {
+        "width": 14,
+        "height": 9
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 136,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\align horizontal centers.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\align horizontal centers.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\align horizontal centers.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\align horizontal centers.png"
+    },
+    {
+      "label": "align left",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\align left.png",
+      "glyph_bbox": {
+        "x": 14,
+        "y": 11,
+        "width": 13,
+        "height": 9
+      },
+      "crop_dimensions": {
+        "width": 13,
+        "height": 9
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 137,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\align left.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\align left.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\align left.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\align left.png"
+    },
+    {
+      "label": "align right",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\align right.png",
+      "glyph_bbox": {
+        "x": 7,
+        "y": 6,
+        "width": 13,
+        "height": 9
+      },
+      "crop_dimensions": {
+        "width": 13,
+        "height": 9
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 116,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\align right.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\align right.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\align right.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\align right.png"
+    },
+    {
+      "label": "align top",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\align top.png",
+      "glyph_bbox": {
+        "x": 9,
+        "y": 8,
+        "width": 9,
+        "height": 13
+      },
+      "crop_dimensions": {
+        "width": 9,
+        "height": 13
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 116,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\align top.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\align top.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\align top.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\align top.png"
+    },
+    {
+      "label": "align vertical centers",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\align vertical centers.png",
+      "glyph_bbox": {
+        "x": 5,
+        "y": 4,
+        "width": 15,
+        "height": 14
+      },
+      "crop_dimensions": {
+        "width": 15,
+        "height": 14
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 124,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\align vertical centers.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\align vertical centers.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\align vertical centers.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\align vertical centers.png"
+    },
+    {
+      "label": "layout flow freeform",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\layout flow freeform.png",
+      "glyph_bbox": {
+        "x": 8,
+        "y": 6,
+        "width": 16,
+        "height": 16
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 16
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 104,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\layout flow freeform.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\layout flow freeform.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\layout flow freeform.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\layout flow freeform.png"
+    },
+    {
+      "label": "layout flow grid",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\layout flow grid.png",
+      "glyph_bbox": {
+        "x": 6,
+        "y": 9,
+        "width": 16,
+        "height": 16
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 16
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 96,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\layout flow grid.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\layout flow grid.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\layout flow grid.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\layout flow grid.png"
+    },
+    {
+      "label": "layout flow horizontal",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\layout flow horizontal.png",
+      "glyph_bbox": {
+        "x": 4,
+        "y": 5,
+        "width": 16,
+        "height": 16
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 16
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 104,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\layout flow horizontal.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\layout flow horizontal.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\layout flow horizontal.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\layout flow horizontal.png"
+    },
+    {
+      "label": "layout flow vertical",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\layout flow vertical.png",
+      "glyph_bbox": {
+        "x": 10,
+        "y": 5,
+        "width": 15,
+        "height": 16
+      },
+      "crop_dimensions": {
+        "width": 15,
+        "height": 16
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 104,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\layout flow vertical.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\layout flow vertical.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\layout flow vertical.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\layout flow vertical.png"
+    },
+    {
+      "label": "layout guide settings",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\layout guide settings.png",
+      "glyph_bbox": {
+        "x": 11,
+        "y": 7,
+        "width": 13,
+        "height": 13
+      },
+      "crop_dimensions": {
+        "width": 13,
+        "height": 13
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 137,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\layout guide settings.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\layout guide settings.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\layout guide settings.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\layout guide settings.png"
+    },
+    {
+      "label": "more actions",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\more actions.png",
+      "glyph_bbox": {
+        "x": 13,
+        "y": 17,
+        "width": 9,
+        "height": 2
+      },
+      "crop_dimensions": {
+        "width": 9,
+        "height": 2
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 108,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\more actions.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\more actions.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\more actions.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\more actions.png"
+    },
+    {
+      "label": "resize to fit",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\resize to fit.png",
+      "glyph_bbox": {
+        "x": 8,
+        "y": 11,
+        "width": 14,
+        "height": 14
+      },
+      "crop_dimensions": {
+        "width": 14,
+        "height": 14
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 114,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\resize to fit.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\resize to fit.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\resize to fit.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\resize to fit.png"
+    },
+    {
+      "label": "use auto layout",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\frame selected\\use auto layout.png",
+      "glyph_bbox": {
+        "x": 6,
+        "y": 9,
+        "width": 16,
+        "height": 16
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 16
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 104,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\use auto layout.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\use auto layout.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\use auto layout.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\use auto layout.png"
+    },
+    {
+      "label": "lock aspect ratio",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\lock aspect ratio.png",
+      "glyph_bbox": {
+        "x": 16,
+        "y": 15,
+        "width": 50,
+        "height": 50
+      },
+      "crop_dimensions": {
+        "width": 50,
+        "height": 50
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 107,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\lock aspect ratio.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\lock aspect ratio.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\lock aspect ratio.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\lock aspect ratio.png"
+    },
+    {
+      "label": "remove",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\remove.png",
+      "glyph_bbox": {
+        "x": 5,
+        "y": 12,
+        "width": 16,
+        "height": 1
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 1
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 97,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\remove.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\remove.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\remove.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\remove.png"
+    },
+    {
+      "label": "settings (2)",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\settings (2).png",
+      "glyph_bbox": {
+        "x": 7,
+        "y": 11,
+        "width": 19,
+        "height": 3
+      },
+      "crop_dimensions": {
+        "width": 19,
+        "height": 3
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 137,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\settings (2).png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\settings (2).png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\settings (2).png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\settings (2).png"
+    },
+    {
+      "label": "settings",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\settings.png",
+      "glyph_bbox": {
+        "x": 10,
+        "y": 11,
+        "width": 14,
+        "height": 15
+      },
+      "crop_dimensions": {
+        "width": 14,
+        "height": 15
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 130,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\settings.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\settings.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\settings.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\settings.png"
+    },
+    {
+      "label": "flip horizontal",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\shape selected\\flip horizontal.png",
+      "glyph_bbox": {
+        "x": 18,
+        "y": 14,
+        "width": 44,
+        "height": 47
+      },
+      "crop_dimensions": {
+        "width": 44,
+        "height": 47
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 131,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\flip horizontal.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\flip horizontal.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\flip horizontal.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\flip horizontal.png"
+    },
+    {
+      "label": "flip vertical",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\shape selected\\flip vertical.png",
+      "glyph_bbox": {
+        "x": 20,
+        "y": 16,
+        "width": 47,
+        "height": 44
+      },
+      "crop_dimensions": {
+        "width": 47,
+        "height": 44
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 130,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\flip vertical.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\flip vertical.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\flip vertical.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\flip vertical.png"
+    },
+    {
+      "label": "rotate 90 degrees right",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\shape selected\\rotate 90 degrees right.png",
+      "glyph_bbox": {
+        "x": 17,
+        "y": 12,
+        "width": 40,
+        "height": 57
+      },
+      "crop_dimensions": {
+        "width": 40,
+        "height": 57
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 126,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\rotate 90 degrees right.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\rotate 90 degrees right.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\rotate 90 degrees right.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\rotate 90 degrees right.png"
+    },
+    {
+      "label": "auto height",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\text selected\\auto height.png",
+      "glyph_bbox": {
+        "x": 9,
+        "y": 4,
+        "width": 16,
+        "height": 13
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 13
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 91,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\auto height.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\auto height.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\auto height.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\auto height.png"
+    },
+    {
+      "label": "auto width",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\text selected\\auto width.png",
+      "glyph_bbox": {
+        "x": 5,
+        "y": 4,
+        "width": 15,
+        "height": 13
+      },
+      "crop_dimensions": {
+        "width": 15,
+        "height": 13
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 107,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\auto width.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\auto width.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\auto width.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\auto width.png"
+    },
+    {
+      "label": "fixed size",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\text selected\\fixed size.png",
+      "glyph_bbox": {
+        "x": 8,
+        "y": 8,
+        "width": 16,
+        "height": 14
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 14
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 103,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\fixed size.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\fixed size.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\fixed size.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\fixed size.png"
+    },
+    {
+      "label": "toggle visibility",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\toggle visibility.png",
+      "glyph_bbox": {
+        "x": 20,
+        "y": 24,
+        "width": 56,
+        "height": 39
+      },
+      "crop_dimensions": {
+        "width": 56,
+        "height": 39
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 119,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\toggle visibility.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\toggle visibility.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\toggle visibility.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\toggle visibility.png"
+    },
+    {
+      "label": "union",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\union.png",
+      "glyph_bbox": {
+        "x": 8,
+        "y": 9,
+        "width": 16,
+        "height": 16
+      },
+      "crop_dimensions": {
+        "width": 16,
+        "height": 16
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 74,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\union.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\union.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\union.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\union.png"
+    },
+    {
+      "label": "use as mask",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\right panel\\use as mask.png",
+      "glyph_bbox": {
+        "x": 7,
+        "y": 8,
+        "width": 18,
+        "height": 18
+      },
+      "crop_dimensions": {
+        "width": 18,
+        "height": 18
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 97,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\use as mask.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\use as mask.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\use as mask.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\use as mask.png"
+    },
+    {
+      "label": "actions",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\actions.png",
+      "glyph_bbox": {
+        "x": 40,
+        "y": 41,
+        "width": 80,
+        "height": 80
+      },
+      "crop_dimensions": {
+        "width": 80,
+        "height": 80
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 116,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\actions.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\actions.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\actions.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\actions.png"
+    },
+    {
+      "label": "comment",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\comment.png",
+      "glyph_bbox": {
+        "x": 43,
+        "y": 35,
+        "width": 81,
+        "height": 81
+      },
+      "crop_dimensions": {
+        "width": 81,
+        "height": 81
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 119,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\comment.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\comment.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\comment.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\comment.png"
+    },
+    {
+      "label": "design",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\design.png",
+      "glyph_bbox": {
+        "x": 36,
+        "y": 28,
+        "width": 68,
+        "height": 68
+      },
+      "crop_dimensions": {
+        "width": 68,
+        "height": 68
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 111,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\design.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\design.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\design.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\design.png"
+    },
+    {
+      "label": "dev mode",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\dev mode.png",
+      "glyph_bbox": {
+        "x": 23,
+        "y": 26,
+        "width": 68,
+        "height": 56
+      },
+      "crop_dimensions": {
+        "width": 68,
+        "height": 56
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 112,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\dev mode.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\dev mode.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\dev mode.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\dev mode.png"
+    },
+    {
+      "label": "draw",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\draw.png",
+      "glyph_bbox": {
+        "x": 26,
+        "y": 20,
+        "width": 63,
+        "height": 64
+      },
+      "crop_dimensions": {
+        "width": 63,
+        "height": 64
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 113,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\draw.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\draw.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\draw.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\draw.png"
+    },
+    {
+      "label": "ellipse",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\ellipse.png",
+      "glyph_bbox": {
+        "x": 23,
+        "y": 18,
+        "width": 62,
+        "height": 61
+      },
+      "crop_dimensions": {
+        "width": 62,
+        "height": 61
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 120,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\ellipse.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\ellipse.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\ellipse.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\ellipse.png"
+    },
+    {
+      "label": "frame",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\frame.png",
+      "glyph_bbox": {
+        "x": 27,
+        "y": 23,
+        "width": 54,
+        "height": 54
+      },
+      "crop_dimensions": {
+        "width": 54,
+        "height": 54
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 126,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\frame.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\frame.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\frame.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\frame.png"
+    },
+    {
+      "label": "motion (beta)",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\motion (beta).png",
+      "glyph_bbox": {
+        "x": 28,
+        "y": 27,
+        "width": 69,
+        "height": 68
+      },
+      "crop_dimensions": {
+        "width": 69,
+        "height": 68
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 113,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\motion (beta).png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\motion (beta).png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\motion (beta).png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\motion (beta).png"
+    },
+    {
+      "label": "move",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\move.png",
+      "glyph_bbox": {
+        "x": 26,
+        "y": 22,
+        "width": 58,
+        "height": 58
+      },
+      "crop_dimensions": {
+        "width": 58,
+        "height": 58
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 116,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\move.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\move.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\move.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\move.png"
+    },
+    {
+      "label": "pen",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\pen.png",
+      "glyph_bbox": {
+        "x": 32,
+        "y": 24,
+        "width": 61,
+        "height": 61
+      },
+      "crop_dimensions": {
+        "width": 61,
+        "height": 61
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 115,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\pen.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\pen.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\pen.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\pen.png"
+    },
+    {
+      "label": "text",
+      "source_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\raw_screenshots\\toolbar\\text.png",
+      "glyph_bbox": {
+        "x": 35,
+        "y": 26,
+        "width": 52,
+        "height": 49
+      },
+      "crop_dimensions": {
+        "width": 52,
+        "height": 49
+      },
+      "canvas_dimensions": {
+        "width": 32,
+        "height": 32
+      },
+      "threshold": 110,
+      "soft_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\crops\\text.png",
+      "binary_crop_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\crops\\text.png",
+      "soft_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\soft\\canvases\\text.png",
+      "binary_canvas_path": "C:\\Users\\samue\\git\\figma-visual-understanding\\assets\\icon_library\\templates\\binary\\canvases\\text.png"
+    }
+  ]
+}

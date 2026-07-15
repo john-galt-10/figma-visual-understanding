@@ -222,3 +222,6 @@ __marimo__/
 .vscode
 .agents
 screenshots_example/
+
+assets/icon_library/raw_screenshots/
+outputs/

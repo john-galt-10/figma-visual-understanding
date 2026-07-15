@@ -1,0 +1,81 @@
+# Settings for the classical icon candidate-generation experiment.
+icon_matching:
+  preprocessing:
+    enabled: true
+    grayscale: true
+    blur_kernel_size: 3
+
+  detectors:
+    morphology:
+      enabled: true
+      local_contrast_threshold: 22
+      adaptive_block_size: 21
+      adaptive_constant: 5
+      dilation_kernel_size: 2
+      dilation_iterations: 1
+      minimum_component_area: 9
+    contours:
+      enabled: true
+      canny_low_threshold: 45
+      canny_high_threshold: 135
+      minimum_contour_area: 4
+      grouping_distance: 4
+
+  merging:
+    enabled: true
+    # Merging applies only across detector types and uses IoU, not containment.
+    overlap_threshold: 0.3  # minimum IoU required to merge (higher is stricter, merges less)
+
+  filters:
+    enabled: true
+    minimum_width: 6
+    minimum_height: 6
+    maximum_width: 96
+    maximum_height: 96
+    minimum_aspect_ratio: 0.2
+    maximum_aspect_ratio: 5.0
+    minimum_compactness: 0.05
+    square_shape:
+      # Higher values are harsher: 1.0 accepts exact squares only.
+      # 0.6 accepts candidates whose longer side is at most about 1.67x the shorter side.
+      enabled: true
+      minimum_compactness: 0.6
+
+  ocr_suppression:
+    enabled: false
+    # engine: paddle
+    engine: easy
+    language: en
+    minimum_text_confidence: 0.7
+    candidate_text_overlap_threshold: 0.6
+
+  crops:
+    padding_pixels: 2
+
+  visualization:
+    enabled: true
+    line_width: 2
+    label_font_scale: 0.45
+    morphology_color_bgr: [0, 180, 255]
+    contours_color_bgr: [255, 170, 0]
+    combined_color_bgr: [80, 220, 80]
+
+  # Shared light-glyph-on-dark-background normalization for library creation and matching.
+  template_preprocessing:
+    canvas_size: 32
+    canvas_margin: 2
+
+  matching:
+    library:
+      manifest_path: assets/icon_library/templates/templates.json
+    primary:
+      provider: chamfer
+      translation_radius_pixels: 2
+    tie_breaker:
+      enabled: true
+      provider: soft_ncc
+      candidate_pool_size: 5
+      primary_weight: 0.8
+      tie_breaker_weight: 0.2
+    results:
+      default_top_k: 5
