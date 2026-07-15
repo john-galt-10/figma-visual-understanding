@@ -13,6 +13,10 @@ class IconMatchingError(RuntimeError):
     """Raised when library loading or matching cannot complete."""
 
 
+class IconMatchingEvaluationError(RuntimeError):
+    """Raised when a labeled icon-matching evaluation cannot be completed."""
+
+
 class IconMatcher(ABC):
     """Define the swappable primary-matcher contract used by the matching pipeline."""
 

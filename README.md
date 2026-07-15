@@ -98,6 +98,10 @@ The implementation philosophy is:
   Added a replaceable OCR interface, PaddleOCR and EasyOCR implementations, and a JSON inspection script for screenshot scans.
 * **2026-07-14: Icon candidate generation**
   Added configurable classical-CV region proposals for likely icons, including inspectable overlays and matcher-ready candidate metadata.
+* **2026-07-15: Icon library and matching**
+  Added icon-template library generation with shared normalization, plus configurable Chamfer matching and an optional soft-template tie breaker for ranking single-icon crops.
+* **2026-07-15: Icon matching evaluation**
+  Added labeled candidate-crop evaluation with configurable score thresholding, threshold mining, precision, recall, MRR, and end-to-end and detection accuracy reporting.
 
 ## Repository intent
 
