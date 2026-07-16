@@ -33,7 +33,7 @@ Use a Python-first stack for the entire RAG system.
 
 Core technologies:
 
-- Python 3.11.15 (use figma-navigator conda environment) 
+- Python 3.11.15 (use figma-navigator conda environment @ C:\Users\samue\miniconda3\envs\figma-navigator\python.exe) 
 - simple local storage using files and JSONL
 - image-processing libraries only when they add clear value
 - OCR utilities when useful for extracting visible UI text

@@ -35,7 +35,7 @@ candidate_queries:
   generation:
     temperature: 0.2
     max_output_tokens: 512
-    # Gemini 3.1 Flash-Lite's current low-latency/default reasoning setting.
+    # Request the provider's lowest supported reasoning level for lower latency.
     thinking_level: minimal
     # Include a short, inspectable explanation of the generated query choices.
     output_reasoning_summary: false

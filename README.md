@@ -102,6 +102,8 @@ The implementation philosophy is:
   Added icon-template library generation with shared normalization, plus configurable Chamfer matching and an optional soft-template tie breaker for ranking single-icon crops.
 * **2026-07-15: Icon matching evaluation**
   Added labeled candidate-crop evaluation with configurable score thresholding, threshold mining, precision, recall, MRR, and end-to-end and detection accuracy reporting.
+* **2026-07-16: Unified visual-signal pipeline**
+  Added one configurable OCR, icon-matching, and candidate-query pipeline that provides ordered, inspectable visual evidence to the VLM, supports token-free signal inspection, and writes a unified JSON artifact.
 
 ## Repository intent
 

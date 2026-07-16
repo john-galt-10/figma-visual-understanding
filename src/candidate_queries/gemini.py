@@ -41,13 +41,14 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         image_path: str | Path,
         textual_query: str | None = None,
         output_trace: bool | None = None,
+        visual_context: str | None = None,
     ) -> CandidateQueryResult:
         """Send a screenshot and optional user intent to Gemini and normalize its JSON."""
         image_metadata = self.read_image_metadata(image_path)
         normalized_textual_query = self._normalize_textual_query(textual_query)
         api_key = self._load_api_key()
         client, types = self._create_client(api_key)
-        prompt = self._build_prompt(normalized_textual_query)
+        prompt = self._build_prompt(normalized_textual_query, visual_context)
         should_output_reasoning = self._should_output_reasoning(output_trace)
         response_schema = (
             QueryResponseWithReasoning if should_output_reasoning else QueryResponse
@@ -135,14 +136,19 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         return normalized or None
 
     @staticmethod
-    def _build_prompt(textual_query: str | None) -> str:
-        """Describe whether Gemini should refine a user intent or infer one from the image."""
+    def _build_prompt(textual_query: str | None, visual_context: str | None = None) -> str:
+        """Describe user intent and append normalized auxiliary visual evidence when supplied."""
         if textual_query:
-            return f"User question: {textual_query}\nGenerate retrieval-query formulations."
-        return (
+            prompt = f"User question: {textual_query}\nGenerate retrieval-query formulations."
+        else:
+            prompt = (
             "No user question was supplied. Inspect the screenshot and generate "
             "feature-identification retrieval-query formulations."
-        )
+            )
+        normalized_context = (visual_context or "").strip()
+        if normalized_context:
+            return f"{prompt}\n\nAuxiliary visual evidence:\n{normalized_context}"
+        return prompt
 
     @staticmethod
     def _parse_response(

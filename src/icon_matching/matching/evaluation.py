@@ -6,13 +6,10 @@ import json
 import math
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Literal
 
 from .base import IconMatchingEvaluationError
+from .detection import DetectionScoreName, select_detection_score
 from .pipeline import IconLibraryMatcher
-
-
-DetectionScoreName = Literal["final", "primary", "secondary"]
 
 
 @dataclass(frozen=True)
@@ -95,7 +92,7 @@ class IconMatchingEvaluator:
                 raise IconMatchingEvaluationError(f"Crop file does not exist: {crop_path}")
             match_run = self.matcher.match(crop_path, top_k=len(self.matcher.templates))
             top_match = match_run.results[0]
-            detection_score = _select_detection_score(top_match, detection_score_name)
+            detection_score = select_detection_score(top_match, detection_score_name)
             detected = detection_score >= detection_threshold
             predicted_label = top_match.label if detected else None
             true_label_rank = _find_label_rank(match_run.results, expected_label) if expected_label else None
@@ -217,20 +214,6 @@ def _resolve_crop_path(manifest_path: Path, crop_path: str) -> Path:
     """Resolve an absolute crop path or a manifest-relative crop filename."""
     path = Path(crop_path).expanduser()
     return path.resolve() if path.is_absolute() else (manifest_path.parent / path).resolve()
-
-
-def _select_detection_score(match, score_name: DetectionScoreName) -> float:
-    """Return the configured top-match score or reject unavailable secondary scores."""
-    if score_name == "final":
-        return match.final_score
-    if score_name == "primary":
-        return match.primary_score
-    if match.tie_breaker_score is None:
-        raise IconMatchingEvaluationError(
-            "Secondary detection scoring is unavailable for the top result. "
-            "Increase matching.tie_breaker.candidate_pool_size or select final/primary."
-        )
-    return match.tie_breaker_score
 
 
 def _find_label_rank(matches, expected_label: str) -> int | None:

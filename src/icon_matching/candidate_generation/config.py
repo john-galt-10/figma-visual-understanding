@@ -6,9 +6,10 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
 
 from .base import CandidateGenerationConfigurationError
+from .ordering_factory import registered_candidate_ordering_providers
 
 
 class PreprocessingSettings(BaseModel):
@@ -70,10 +71,11 @@ class DetectorsSettings(BaseModel):
 
 
 class MergingSettings(BaseModel):
-    """Configure cross-detector deduplication using intersection over union."""
+    """Configure cross-detector merging and final contained-region cleanup."""
 
     enabled: bool = True
     overlap_threshold: float = Field(default=0.5, gt=0.0, le=1.0)
+    deduplicate_contained_regions: bool = True
 
 
 class SquareShapeSettings(BaseModel):
@@ -127,6 +129,24 @@ class CropSettings(BaseModel):
     """Configure padding around detected content when materializing crops."""
 
     padding_pixels: int = Field(default=2, ge=0)
+
+
+class OrderingSettings(BaseModel):
+    """Select how final icon proposals receive their visual reading order."""
+
+    provider: str = "center_cluster"
+    row_center_tolerance_height_multiplier: float = Field(default=0.4, gt=0.0)
+
+    @field_validator("provider")
+    @classmethod
+    def validate_provider(cls, provider: str) -> str:
+        """Accept only candidate-ordering strategies registered in the factory."""
+        if provider not in registered_candidate_ordering_providers():
+            raise ValueError(
+                "provider must be one of: "
+                + ", ".join(sorted(registered_candidate_ordering_providers()))
+            )
+        return provider
 
 
 class VisualizationSettings(BaseModel):
@@ -205,6 +225,8 @@ class MatchingSettings(BaseModel):
     primary: PrimaryMatcherSettings = Field(default_factory=PrimaryMatcherSettings)
     tie_breaker: TieBreakerSettings = Field(default_factory=TieBreakerSettings)
     results: MatchResultSettings = Field(default_factory=MatchResultSettings)
+    detection_threshold: float = Field(default=0.9, ge=0.0, le=1.0)
+    detection_score: Literal["final", "primary", "secondary"] = "final"
 
 
 class IconMatchingSettings(BaseModel):
@@ -216,6 +238,7 @@ class IconMatchingSettings(BaseModel):
     filters: FilterSettings = Field(default_factory=FilterSettings)
     ocr_suppression: OcrSuppressionSettings = Field(default_factory=OcrSuppressionSettings)
     crops: CropSettings = Field(default_factory=CropSettings)
+    ordering: OrderingSettings = Field(default_factory=OrderingSettings)
     visualization: VisualizationSettings = Field(default_factory=VisualizationSettings)
     template_preprocessing: TemplatePreprocessingSettings = Field(default_factory=TemplatePreprocessingSettings)
     matching: MatchingSettings = Field(default_factory=MatchingSettings)

@@ -16,5 +16,5 @@ def create_candidate_query_generator(
 
         return GeminiCandidateQueryGenerator(settings)
     raise CandidateQueryConfigurationError(
-        f"Unknown candidate-query provider '{settings.provider}'. Choose: gemini."
+        f"Unknown or unregistered candidate-query provider '{settings.provider}'."
     )

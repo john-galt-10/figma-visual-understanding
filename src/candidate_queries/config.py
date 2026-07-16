@@ -12,7 +12,7 @@ from .base import CandidateQueryConfigurationError
 
 
 class GenerationSettings(BaseModel):
-    """Controls Gemini response generation behavior."""
+    """Controls response generation behavior shared by supported providers."""
 
     temperature: float = Field(ge=0.0, le=2.0)
     max_output_tokens: int = Field(gt=0)
@@ -23,6 +23,7 @@ class GenerationSettings(BaseModel):
 class CandidateQuerySettings(BaseModel):
     """Contains the provider-independent settings for one query generator."""
 
+    enabled: bool = True
     provider: str
     model: str
     api_key_environment_variable: str

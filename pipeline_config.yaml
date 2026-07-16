@@ -1,0 +1,131 @@
+# Settings for the unified visual-signal pipeline.
+pipeline:
+  ocr:
+    enabled: true
+    engine: easy
+    language: en
+
+  icon_matching:
+    enabled: true
+    preprocessing:
+      enabled: true
+      grayscale: true
+      blur_kernel_size: 3
+    detectors:
+      morphology:
+        enabled: true
+        local_contrast_threshold: 22
+        adaptive_block_size: 21
+        adaptive_constant: 5
+        dilation_kernel_size: 2
+        dilation_iterations: 1
+        minimum_component_area: 9
+      contours:
+        enabled: true
+        canny_low_threshold: 45
+        canny_high_threshold: 135
+        minimum_contour_area: 4
+        grouping_distance: 4
+    merging:
+      enabled: true
+      overlap_threshold: 0.3
+      # Runs after all candidate-processing stages; larger fully containing boxes are retained.
+      deduplicate_contained_regions: true
+    filters:
+      enabled: true
+      minimum_width: 6
+      minimum_height: 6
+      maximum_width: 96
+      maximum_height: 96
+      minimum_aspect_ratio: 0.2
+      maximum_aspect_ratio: 5.0
+      minimum_compactness: 0.05
+      square_shape:
+        enabled: true
+        minimum_compactness: 0.6
+    ocr_suppression:
+      enabled: false
+      engine: easy
+      language: en
+      minimum_text_confidence: 0.7
+      candidate_text_overlap_threshold: 0.6
+    crops:
+      padding_pixels: 2
+    ordering:
+      provider: center_cluster
+      row_center_tolerance_height_multiplier: 0.4
+    visualization:
+      enabled: false
+      line_width: 2
+      label_font_scale: 0.45
+      morphology_color_bgr: [0, 180, 255]
+      contours_color_bgr: [255, 170, 0]
+      combined_color_bgr: [80, 220, 80]
+    template_preprocessing:
+      canvas_size: 32
+      canvas_margin: 2
+    matching:
+      library:
+        manifest_path: assets/icon_library/templates/templates.json
+      primary:
+        provider: chamfer
+        translation_radius_pixels: 2
+      tie_breaker:
+        enabled: true
+        provider: soft_ncc
+        candidate_pool_size: 5
+        primary_weight: 0.8
+        tie_breaker_weight: 0.2
+      results:
+        default_top_k: 5
+      # A candidate is accepted only when the selected score is at least this value.
+      detection_threshold: 0.973675221184481
+      # Select final, primary, or secondary (the tie-breaker) score for thresholding.
+      detection_score: final
+
+# Set enabled: false to inspect signals without calling the VLM or spending tokens.
+candidate_queries:
+  enabled: true
+  provider: gemini
+  model: gemini-3.1-flash-lite
+  api_key_environment_variable: GEMINI_API_KEY
+  max_candidates: 5
+  system_instruction: >-
+    You generate concise search queries for official Figma documentation.
+    Return at least three distinct, specific queries that would help retrieve
+    documentation explaining the visible Figma feature, control, panel, or state.
+    If a user question is provided, preserve its intent and use the screenshot to
+    add Figma-specific terminology. If no user question is provided, identify the
+    most prominent relevant control or feature and phrase queries such as "What is
+    this button in Figma?" or "How does this slider work in Figma?".
+
+    Use the screenshot together with the supplied auxiliary visual evidence,
+    including OCR-visible text and detected icon names. Treat this evidence as
+    useful grounding and rely on it unless it is clearly inconsistent with the
+    screenshot or internally contradictory. Do not disregard detector evidence
+    merely because it is incomplete: icon detection focuses on icons that commonly
+    appear without accompanying explanatory text, so an icon may be absent from
+    the detected-icon list even when it is visible in the screenshot.
+
+    Do not answer the user question, describe the image, or invent UI labels that
+    are not visible or strongly supported by the screenshot or auxiliary evidence.
+    When returning multiple queries, make them semantically diverse rather than
+    minor wording variations. Use distinct retrieval angles where supported:
+    direct feature identification using visible text or an icon name; the likely
+    user task or behavior associated with an explicitly supported feature; or a
+    documentation-oriented angle such as creation, configuration, shortcut,
+    terminology, or UI context.
+
+    Keep every query grounded in visible evidence or strongly supported Figma
+    terminology. You may name a visually recognizable Figma control, but do not
+    infer its purpose, behavior, side effects, or user outcome unless that is
+    explicitly supported by the visible label, auxiliary evidence, or user
+    question. Prefer neutral identification queries such as "What does Clip
+    content do in Figma?" over inferred-behavior queries such as "How to hide
+    overflowing layers in Figma?". If the screenshot supports only one useful
+    angle, return fewer queries rather than padded paraphrases.
+  generation:
+    temperature: 0.2
+    max_output_tokens: 512
+    thinking_level: minimal
+    output_reasoning_summary: true

@@ -44,8 +44,9 @@ class CandidateQueryGenerator(ABC):
         image_path: str | Path,
         textual_query: str | None = None,
         output_trace: bool | None = None,
+        visual_context: str | None = None,
     ) -> CandidateQueryResult:
-        """Generate queries, optionally overriding configured reasoning-summary output."""
+        """Generate queries with optional normalized visual evidence for the provider prompt."""
 
     @staticmethod
     def read_image_metadata(image_path: str | Path) -> ImageMetadata:

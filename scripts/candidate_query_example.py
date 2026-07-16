@@ -16,7 +16,7 @@ from candidate_queries.factory import create_candidate_query_generator  # noqa: 
 
 
 def parse_arguments() -> argparse.Namespace:
-    """Parse the screenshot and optional user question supplied to the example CLI."""
+    """Parse the screenshot, configuration, and optional user question for the CLI."""
     parser = argparse.ArgumentParser(
         description="Generate structured Figma documentation retrieval queries from a screenshot."
     )
@@ -24,6 +24,15 @@ def parse_arguments() -> argparse.Namespace:
         "--image-path",
         required=True,
         help="Path to a PNG, JPEG, WebP, BMP, or TIFF Figma screenshot.",
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=REPOSITORY_ROOT / "query_gen_config.yaml",
+        help=(
+            "Path to the candidate-query YAML configuration file "
+            "(default: %(default)s)."
+        ),
     )
     parser.add_argument(
         "--text-query",
@@ -45,7 +54,7 @@ def main() -> int:
     """Load configuration, generate queries, and print JSON to standard output."""
     arguments = parse_arguments()
     try:
-        settings = load_settings(REPOSITORY_ROOT / "config.yaml")
+        settings = load_settings(arguments.config_path)
         generator = create_candidate_query_generator(settings)
         result = generator.generate(
             arguments.image_path,

@@ -14,6 +14,7 @@ from .base import CandidateGenerationError
 from .config import IconMatchingSettings
 from .detectors import CannyContourDetector, MorphologyConnectedComponentsDetector, _cv2
 from .models import BoundingBox, CandidateGenerationResult, IconCandidate, RegionProposal
+from .ordering_factory import create_candidate_ordering_strategy
 
 
 class IconCandidateGenerator:
@@ -41,7 +42,8 @@ class IconCandidateGenerator:
             square_shape_rejected_after_merging,
         ) = self._filter_geometry(merged_proposals)
         retained_proposals, ocr_rejected, ocr_metadata = self._suppress_ocr(final_filtered_proposals, path)
-        candidates = self._to_candidates(retained_proposals, color_image.shape[1], color_image.shape[0])
+        deduplicated_proposals = self._deduplicate_contained_regions(retained_proposals)
+        candidates = self._to_candidates(deduplicated_proposals, color_image.shape[1], color_image.shape[0])
         return CandidateGenerationResult(
             schema_version="1.0",
             image=image_metadata,
@@ -52,6 +54,7 @@ class IconCandidateGenerator:
                 "morphology": self.settings.detectors.morphology.enabled,
                 "contours": self.settings.detectors.contours.enabled,
                 "merging": self.settings.merging.enabled,
+                "containment_deduplication": self.settings.merging.deduplicate_contained_regions,
                 "geometric_filters": self.settings.filters.enabled,
                 "ocr_suppression": self.settings.ocr_suppression.enabled,
             },
@@ -64,6 +67,8 @@ class IconCandidateGenerator:
                 "geometric_rejected_after_merging": geometric_rejected_after_merging,
                 "square_shape_rejected_after_merging": square_shape_rejected_after_merging,
                 "ocr_rejected": ocr_rejected,
+                "after_containment_deduplication": len(deduplicated_proposals),
+                "containment_deduplicated": len(retained_proposals) - len(deduplicated_proposals),
                 "final_candidates": len(candidates),
             },
             crop_files_exported=export_crops,
@@ -203,9 +208,29 @@ class IconCandidateGenerator:
             },
         )
 
+    def _deduplicate_contained_regions(self, proposals: list[RegionProposal]) -> list[RegionProposal]:
+        """Merge fully contained final proposals into the largest retained region."""
+        if not self.settings.merging.deduplicate_contained_regions:
+            return proposals
+        retained: list[RegionProposal] = []
+        for proposal in sorted(proposals, key=lambda item: -item.bbox.area):
+            containing_index = next(
+                (
+                    index
+                    for index, retained_proposal in enumerate(retained)
+                    if _contains(retained_proposal.bbox, proposal.bbox)
+                ),
+                None,
+            )
+            if containing_index is None:
+                retained.append(proposal)
+            else:
+                retained[containing_index] = _merge_group([retained[containing_index], proposal])
+        return retained
+
     def _to_candidates(self, proposals: list[RegionProposal], image_width: int, image_height: int) -> list[IconCandidate]:
         """Assign stable IDs, padded crop boxes, and scores to final proposals."""
-        ordered = sorted(proposals, key=lambda proposal: (proposal.bbox.y, proposal.bbox.x, proposal.bbox.width, proposal.bbox.height))
+        ordered = create_candidate_ordering_strategy(self.settings.ordering).order(proposals)
         return [
             IconCandidate(
                 id=f"candidate-{index:03d}",
@@ -255,6 +280,16 @@ def _can_merge(first: RegionProposal, second: RegionProposal) -> bool:
 def _candidate_coverage(candidate: BoundingBox, text: BoundingBox) -> float:
     """Return the fraction of an icon candidate covered by a text detection."""
     return _intersection_area(candidate, text) / candidate.area if candidate.area else 0.0
+
+
+def _contains(container: BoundingBox, candidate: BoundingBox) -> bool:
+    """Return whether a candidate rectangle lies completely inside a container."""
+    return (
+        container.x <= candidate.x
+        and container.y <= candidate.y
+        and container.right >= candidate.right
+        and container.bottom >= candidate.bottom
+    )
 
 
 def _intersection_area(first: BoundingBox, second: BoundingBox) -> int:

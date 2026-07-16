@@ -25,6 +25,8 @@ icon_matching:
     enabled: true
     # Merging applies only across detector types and uses IoU, not containment.
     overlap_threshold: 0.3  # minimum IoU required to merge (higher is stricter, merges less)
+    # Runs after all candidate-processing stages; larger fully containing boxes are retained.
+    deduplicate_contained_regions: true
 
   filters:
     enabled: true
@@ -51,6 +53,11 @@ icon_matching:
 
   crops:
     padding_pixels: 2
+
+  ordering:
+    # Cluster visually aligned boxes into rows before assigning candidate IDs.
+    provider: center_cluster
+    row_center_tolerance_height_multiplier: 0.4
 
   visualization:
     enabled: true
