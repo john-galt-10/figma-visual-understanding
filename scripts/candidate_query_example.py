@@ -29,6 +29,15 @@ def parse_arguments() -> argparse.Namespace:
         "--text-query",
         help="Optional user question to refine using the screenshot context.",
     )
+    parser.add_argument(
+        "--output-trace",
+        action="store_true",
+        default=None,
+        help=(
+            "Include a short reasoning summary in the JSON output, overriding the "
+            "configuration setting."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -38,11 +47,15 @@ def main() -> int:
     try:
         settings = load_settings(REPOSITORY_ROOT / "config.yaml")
         generator = create_candidate_query_generator(settings)
-        result = generator.generate(arguments.image_path, arguments.text_query)
+        result = generator.generate(
+            arguments.image_path,
+            arguments.text_query,
+            output_trace=arguments.output_trace,
+        )
     except (CandidateQueryError, ValueError) as error:
         print(f"Candidate query generation failed: {error}", file=sys.stderr)
         return 1
-    print(result.model_dump_json(indent=2))
+    print(result.model_dump_json(indent=2, exclude_none=True))
     return 0
 
 

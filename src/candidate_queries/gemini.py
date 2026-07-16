@@ -23,6 +23,7 @@ from .models import (
     CandidateQueryResult,
     GeneratorMetadata,
     QueryResponse,
+    QueryResponseWithReasoning,
 )
 
 
@@ -36,7 +37,10 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         self.settings = settings
 
     def generate(
-        self, image_path: str | Path, textual_query: str | None = None
+        self,
+        image_path: str | Path,
+        textual_query: str | None = None,
+        output_trace: bool | None = None,
     ) -> CandidateQueryResult:
         """Send a screenshot and optional user intent to Gemini and normalize its JSON."""
         image_metadata = self.read_image_metadata(image_path)
@@ -44,6 +48,10 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         api_key = self._load_api_key()
         client, types = self._create_client(api_key)
         prompt = self._build_prompt(normalized_textual_query)
+        should_output_reasoning = self._should_output_reasoning(output_trace)
+        response_schema = (
+            QueryResponseWithReasoning if should_output_reasoning else QueryResponse
+        )
 
         started_at = perf_counter()
         try:
@@ -55,12 +63,15 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
                     config=types.GenerateContentConfig(
                         system_instruction=self.settings.system_instruction,
                         response_mime_type="application/json",
-                        response_schema=QueryResponse,
+                        response_schema=response_schema,
                         temperature=self.settings.generation.temperature,
                         max_output_tokens=self.settings.generation.max_output_tokens,
+                        thinking_config=types.ThinkingConfig(
+                            thinking_level=self.settings.generation.thinking_level
+                        ),
                     ),
                 )
-            query_response = self._parse_response(response)
+            query_response = self._parse_response(response, response_schema)
         except CandidateQueryProviderError:
             raise
         except Exception as error:
@@ -82,8 +93,13 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
                 sdk_version=self._sdk_version(),
             ),
             retrieval_queries=queries,
+            reasoning_summary=self._reasoning_summary(query_response),
             processing_time_seconds=round(elapsed, 6),
-            metadata={"configured_max_candidates": self.settings.max_candidates},
+            metadata={
+                "configured_max_candidates": self.settings.max_candidates,
+                "thinking_level": self.settings.generation.thinking_level,
+                "reasoning_summary_enabled": should_output_reasoning,
+            },
         )
 
     def _load_api_key(self) -> str:
@@ -129,22 +145,37 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         )
 
     @staticmethod
-    def _parse_response(response: object) -> QueryResponse:
+    def _parse_response(
+        response: object, response_schema: type[QueryResponse]
+    ) -> QueryResponse:
         """Validate Gemini's parsed or textual structured response with Pydantic."""
         parsed = getattr(response, "parsed", None)
         try:
-            if isinstance(parsed, QueryResponse):
+            if isinstance(parsed, response_schema):
                 return parsed
             if parsed is not None:
-                return QueryResponse.model_validate(parsed)
+                return response_schema.model_validate(parsed)
             response_text = getattr(response, "text", None)
             if not response_text:
                 raise ValueError("response did not contain parsed JSON or text")
-            return QueryResponse.model_validate_json(response_text)
+            return response_schema.model_validate_json(response_text)
         except (ValidationError, ValueError) as error:
             raise CandidateQueryProviderError(
                 f"Gemini returned an invalid structured response: {error}"
             ) from error
+
+    def _should_output_reasoning(self, output_trace: bool | None) -> bool:
+        """Use the CLI preference when supplied, otherwise retain the YAML setting."""
+        if output_trace is not None:
+            return output_trace
+        return self.settings.generation.output_reasoning_summary
+
+    @staticmethod
+    def _reasoning_summary(query_response: QueryResponse) -> str | None:
+        """Extract the requested short rationale without exposing an internal trace."""
+        if isinstance(query_response, QueryResponseWithReasoning):
+            return query_response.reasoning_summary.strip()
+        return None
 
     def _normalize_queries(self, raw_queries: list[str]) -> list[str]:
         """Remove blank or duplicate queries and enforce the configured maximum."""

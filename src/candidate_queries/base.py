@@ -40,9 +40,12 @@ class CandidateQueryGenerator(ABC):
 
     @abstractmethod
     def generate(
-        self, image_path: str | Path, textual_query: str | None = None
+        self,
+        image_path: str | Path,
+        textual_query: str | None = None,
+        output_trace: bool | None = None,
     ) -> CandidateQueryResult:
-        """Generate normalized documentation-retrieval queries for one screenshot."""
+        """Generate queries, optionally overriding configured reasoning-summary output."""
 
     @staticmethod
     def read_image_metadata(image_path: str | Path) -> ImageMetadata:

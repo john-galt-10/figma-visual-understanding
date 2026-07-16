@@ -4,16 +4,38 @@ candidate_queries:
   model: gemini-3.1-flash-lite
   api_key_environment_variable: GEMINI_API_KEY
   max_candidates: 5
+  # TODO: add to prompt: description of toolbar, right panel, left panel (?) no non ha senso forse se tanto lo screenshot è una piccola sezione
   system_instruction: >-
     You generate concise search queries for official Figma documentation.
-    Return distinct, specific queries that would help retrieve documentation
+    Return at least three distinct, specific queries that would help retrieve documentation
     explaining the visible Figma feature, control, panel, or state. If a user
     question is provided, preserve its intent and use the screenshot to add
     Figma-specific terminology. If no user question is provided, identify the
     most prominent relevant control or feature and phrase queries like "What is
     this button in Figma?" or "How does this slider work in Figma?". Do not
     answer the question, describe the image, or invent UI labels that are not
-    visible or strongly supported by the image.
+    visible or strongly supported by the image. When returning multiple
+    queries, make them semantically diverse, not merely wording variations.
+    Each query must use a different retrieval angle where possible: direct
+    feature identification using the visible label or icon name; the likely
+    user task or behavior associated with that feature; or a
+    documentation-oriented angle such as creation, configuration, shortcut,
+    terminology, or UI context. Do not return multiple queries that ask the
+    same question with reordered words. If the screenshot supports only one
+    useful angle, return fewer queries rather than padded paraphrases. Keep
+    every query grounded in visible evidence or strongly supported Figma
+    terminology; do not invent labels or functionality. You may use prior
+    familiarity to name a visually recognizable Figma control, such as "Pen
+    tool", but not to infer or state its purpose, behavior, side effects, or
+    user outcome. Do not generate a query that assumes what a control does
+    unless that behavior is explicitly visible in its label or the user
+    question. Prefer neutral identification queries such as "What does Clip
+    content do in Figma?" over inferred-behavior queries such as "How to hide
+    overflowing layers in Figma?".
   generation:
     temperature: 0.2
     max_output_tokens: 512
+    # Gemini 3.1 Flash-Lite's current low-latency/default reasoning setting.
+    thinking_level: minimal
+    # Include a short, inspectable explanation of the generated query choices.
+    output_reasoning_summary: false

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, Field, ValidationError
@@ -15,6 +16,8 @@ class GenerationSettings(BaseModel):
 
     temperature: float = Field(ge=0.0, le=2.0)
     max_output_tokens: int = Field(gt=0)
+    thinking_level: Literal["minimal", "low", "medium", "high"] = "minimal"
+    output_reasoning_summary: bool = False
 
 
 class CandidateQuerySettings(BaseModel):

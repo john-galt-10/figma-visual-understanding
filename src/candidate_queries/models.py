@@ -15,6 +15,18 @@ class QueryResponse(BaseModel):
     )
 
 
+class QueryResponseWithReasoning(QueryResponse):
+    """Extends a query response with a short, inspectable query-selection summary."""
+
+    reasoning_summary: str = Field(
+        min_length=1,
+        description=(
+            "Brief explanation of the visible evidence and terminology used to choose "
+            "the retrieval queries."
+        ),
+    )
+
+
 class ImageMetadata(BaseModel):
     """Describes the validated screenshot sent to a query-generation provider."""
 
@@ -48,5 +60,6 @@ class CandidateQueryResult(BaseModel):
     input: CandidateQueryInput
     generator: GeneratorMetadata
     retrieval_queries: list[str]
+    reasoning_summary: str | None = None
     processing_time_seconds: float
     metadata: dict[str, Any] = Field(default_factory=dict)
