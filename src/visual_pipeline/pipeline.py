@@ -17,6 +17,7 @@ from icon_matching.matching.detection import DetectionScoreName, select_detectio
 from icon_matching.matching.pipeline import IconLibraryMatcher
 from ocr.base import OcrError
 from ocr.factory import create_ocr_engine
+from ocr.filtering import filter_detections_by_confidence
 
 from .config import ApplicationSettings
 from .models import PipelineResult
@@ -73,11 +74,18 @@ class VisualSignalPipeline:
             scan = create_ocr_engine(settings.engine, language=settings.language).scan(image_path)
         except (OcrError, ValueError) as error:
             raise VisualPipelineError(f"Enabled OCR stage failed: {error}") from error
-        detections = sorted(scan.detections, key=_text_reading_order)
+        accepted_detections = filter_detections_by_confidence(
+            scan.detections, settings.detection_threshold
+        )
+        detections = sorted(accepted_detections, key=_text_reading_order)
         return {
             "enabled": True,
             "engine": scan.engine,
-            "visible_text": [detection.text for detection in detections if detection.text.strip()],
+            "visible_text": [detection.text for detection in detections],
+            "detection_threshold": settings.detection_threshold,
+            "detection_count": scan.detection_count,
+            "accepted_detection_count": len(accepted_detections),
+            "rejected_detection_count": scan.detection_count - len(accepted_detections),
             "processing_time_seconds": scan.processing_time_seconds,
         }
 

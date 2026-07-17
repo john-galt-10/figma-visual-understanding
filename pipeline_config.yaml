@@ -4,6 +4,8 @@ pipeline:
     enabled: true
     engine: easy
     language: en
+    # Only text detections at or above this confidence reach VLM evidence.
+    detection_threshold: 0.90
 
   icon_matching:
     enabled: true

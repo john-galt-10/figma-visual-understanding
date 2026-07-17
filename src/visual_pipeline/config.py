@@ -17,6 +17,7 @@ class OcrPipelineSettings(BaseModel):
     enabled: bool = True
     engine: str = "easy"
     language: str = Field(default="en", min_length=1)
+    detection_threshold: float = Field(default=0.90, ge=0.0, le=1.0)
 
 
 class IconPipelineSettings(IconMatchingSettings):

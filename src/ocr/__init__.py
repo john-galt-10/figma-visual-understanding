@@ -2,6 +2,7 @@
 
 from .base import OcrEngine
 from .factory import create_ocr_engine
+from .filtering import filter_detections_by_confidence
 from .models import ImageMetadata, OcrScanResult, TextDetection
 
 __all__ = [
@@ -10,4 +11,5 @@ __all__ = [
     "OcrScanResult",
     "TextDetection",
     "create_ocr_engine",
+    "filter_detections_by_confidence",
 ]

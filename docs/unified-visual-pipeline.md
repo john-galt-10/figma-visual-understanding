@@ -21,12 +21,15 @@ Use `--save-icon-crops` or `--keep-crops` to retain matcher input crops in `icon
 `pipeline_config.yaml` contains all component settings. The switches are:
 
 - `pipeline.ocr.enabled`: include OCR text evidence.
+- `pipeline.ocr.detection_threshold`: minimum OCR confidence for VLM text evidence; defaults to `0.90`.
 - `pipeline.icon_matching.enabled`: include matched icon-name evidence.
 - `candidate_queries.enabled`: call the configured VLM provider to generate retrieval queries.
 
 The VLM setting defaults to `true`. Set it to `false` to inspect OCR/icon evidence without initializing a provider client or spending API tokens. The script prints the exact normalized signal block in either mode.
 
 Enabled OCR or icon stages fail the run if their dependencies, inputs, or configured backend fail. Disabled stages are recorded as disabled and do not prevent VLM generation.
+
+OCR evidence includes only non-empty detections whose confidence is at least `pipeline.ocr.detection_threshold`. Detections without a confidence score are excluded. The JSON signal records the threshold plus total, accepted, and rejected detection counts.
 
 Icon matching accepts a candidate only when its configured top-match score is at least `matching.detection_threshold`. Set `matching.detection_score` to `final`, `primary`, or `secondary` to choose the score: `secondary` is the configured tie-breaker score and requires an available tie breaker. Rejected candidates do not appear in VLM icon evidence.
 
