@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from contextlib import ExitStack
 from importlib import metadata
 import os
 from pathlib import Path
@@ -16,6 +17,7 @@ from .base import (
     CandidateQueryDependencyError,
     CandidateQueryGenerator,
     CandidateQueryProviderError,
+    build_user_prompt,
 )
 from .config import CandidateQuerySettings
 from .models import (
@@ -42,13 +44,17 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         textual_query: str | None = None,
         output_trace: bool | None = None,
         visual_context: str | None = None,
+        additional_image_paths: list[str | Path] | None = None,
     ) -> CandidateQueryResult:
-        """Send a screenshot and optional user intent to Gemini and normalize its JSON."""
+        """Send ordered screenshot inputs and optional user intent to Gemini as JSON queries."""
         image_metadata = self.read_image_metadata(image_path)
+        additional_metadata = [
+            self.read_image_metadata(path) for path in (additional_image_paths or [])
+        ]
         normalized_textual_query = self._normalize_textual_query(textual_query)
         api_key = self._load_api_key()
         client, types = self._create_client(api_key)
-        prompt = self._build_prompt(normalized_textual_query, visual_context)
+        prompt = build_user_prompt(normalized_textual_query, visual_context)
         should_output_reasoning = self._should_output_reasoning(output_trace)
         response_schema = (
             QueryResponseWithReasoning if should_output_reasoning else QueryResponse
@@ -56,11 +62,15 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
 
         started_at = perf_counter()
         try:
-            with Image.open(image_metadata.path) as source_image:
-                image = source_image.copy()
+            image_metadata_list = [image_metadata, *additional_metadata]
+            with ExitStack() as image_stack:
+                images = [
+                    image_stack.enter_context(Image.open(metadata.path)).copy()
+                    for metadata in image_metadata_list
+                ]
                 response = client.models.generate_content(
                     model=self.settings.model,
-                    contents=[prompt, image],
+                    contents=[prompt, *images],
                     config=types.GenerateContentConfig(
                         system_instruction=self.settings.system_instruction,
                         response_mime_type="application/json",
@@ -86,7 +96,9 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
 
         return CandidateQueryResult(
             input=CandidateQueryInput(
-                image=image_metadata, textual_query=normalized_textual_query
+                image=image_metadata,
+                images=image_metadata_list,
+                textual_query=normalized_textual_query,
             ),
             generator=GeneratorMetadata(
                 provider=self.provider_name,
@@ -134,21 +146,6 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
             return None
         normalized = textual_query.strip()
         return normalized or None
-
-    @staticmethod
-    def _build_prompt(textual_query: str | None, visual_context: str | None = None) -> str:
-        """Describe user intent and append normalized auxiliary visual evidence when supplied."""
-        if textual_query:
-            prompt = f"User question: {textual_query}\nGenerate retrieval-query formulations."
-        else:
-            prompt = (
-            "No user question was supplied. Inspect the screenshot and generate "
-            "feature-identification retrieval-query formulations."
-            )
-        normalized_context = (visual_context or "").strip()
-        if normalized_context:
-            return f"{prompt}\n\nAuxiliary visual evidence:\n{normalized_context}"
-        return prompt
 
     @staticmethod
     def _parse_response(

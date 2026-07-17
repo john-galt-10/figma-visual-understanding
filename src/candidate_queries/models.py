@@ -41,6 +41,7 @@ class CandidateQueryInput(BaseModel):
     """Captures the caller inputs used to generate candidate queries."""
 
     image: ImageMetadata
+    images: list[ImageMetadata] = Field(default_factory=list)
     textual_query: str | None = None
 
 

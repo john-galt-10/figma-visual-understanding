@@ -24,6 +24,7 @@ class CandidateQuerySettings(BaseModel):
     """Contains the provider-independent settings for one query generator."""
 
     enabled: bool = True
+    input_mode: Literal["vanilla", "segmented", "hybrid"] = "vanilla"
     provider: str
     model: str
     api_key_environment_variable: str

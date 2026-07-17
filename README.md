@@ -104,6 +104,8 @@ The implementation philosophy is:
   Added labeled candidate-crop evaluation with configurable score thresholding, threshold mining, precision, recall, MRR, and end-to-end and detection accuracy reporting.
 * **2026-07-16: Unified visual-signal pipeline**
   Added one configurable OCR, icon-matching, and candidate-query pipeline that provides ordered, inspectable visual evidence to the VLM, supports token-free signal inspection, and writes a unified JSON artifact.
+* **2026-07-17: Configurable VLM input modes**
+  Added vanilla, segmented, and hybrid screenshot inputs so VLM experiments can ground accepted icon detections in retained numbered overlays.
 
 ## Repository intent
 

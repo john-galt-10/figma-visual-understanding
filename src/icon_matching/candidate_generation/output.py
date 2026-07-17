@@ -60,21 +60,56 @@ def _crop(image: np.ndarray, x: int, y: int, right: int, bottom: int) -> np.ndar
 
 def _write_overlay(path: Path, image: np.ndarray, result: CandidateGenerationResult) -> None:
     """Draw final candidate boxes and detector provenance over the source screenshot."""
-    cv2 = _cv2()
     settings = result.configuration["visualization"]
+    annotations = [
+        (candidate.content_bbox, candidate.id, _candidate_color(candidate.detector_sources, settings))
+        for candidate in result.candidates
+    ]
+    _write_annotations(path, image, annotations, settings)
+
+
+def write_detection_overlay(
+    image_path: str | Path,
+    output_path: str | Path,
+    detections: list[tuple[object, str]],
+    visualization_settings: dict[str, object],
+) -> Path:
+    """Write a numbered overlay for threshold-accepted icon detections only.
+
+    Each detection is a ``BoundingBox``-compatible object plus its display label.
+    The shared renderer deliberately keeps this VLM artifact separate from the
+    raw-candidate diagnostic overlay used by candidate generation.
+    """
+    source = _read_bgr_image(Path(image_path))
+    color = tuple(int(channel) for channel in visualization_settings["combined_color_bgr"])
+    annotations = [(bbox, label, color) for bbox, label in detections]
+    destination = Path(output_path).expanduser().resolve()
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    _write_annotations(destination, source, annotations, visualization_settings)
+    return destination
+
+
+def _write_annotations(
+    path: Path,
+    image: np.ndarray,
+    annotations: list[tuple[object, str, tuple[int, int, int]]],
+    settings: dict[str, object],
+) -> None:
+    """Draw supplied bounding-box labels with the candidate overlay appearance."""
+    cv2 = _cv2()
     overlay = image.copy()
-    for candidate in result.candidates:
-        color = _candidate_color(candidate.detector_sources, settings)
-        bbox = candidate.content_bbox
-        cv2.rectangle(overlay, (bbox.x, bbox.y), (bbox.right, bbox.bottom), color, settings["line_width"])
+    for bbox, label, color in annotations:
+        x, y = int(getattr(bbox, "x")), int(getattr(bbox, "y"))
+        right, bottom = int(getattr(bbox, "right")), int(getattr(bbox, "bottom"))
+        cv2.rectangle(overlay, (x, y), (right, bottom), color, int(settings["line_width"]))
         cv2.putText(
             overlay,
-            candidate.id,
-            (bbox.x, max(12, bbox.y - 3)),
+            label,
+            (x, max(12, y - 3)),
             cv2.FONT_HERSHEY_SIMPLEX,
-            settings["label_font_scale"],
+            float(settings["label_font_scale"]),
             color,
-            settings["line_width"],
+            int(settings["line_width"]),
             cv2.LINE_AA,
         )
     _write_bgr_image(path, overlay)

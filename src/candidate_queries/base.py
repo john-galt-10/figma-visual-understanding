@@ -13,6 +13,22 @@ from .models import CandidateQueryResult, ImageMetadata
 SUPPORTED_IMAGE_FORMATS = frozenset({"PNG", "JPEG", "WEBP", "BMP", "TIFF"})
 
 
+def build_user_prompt(textual_query: str | None, visual_context: str | None = None) -> str:
+    """Build the exact text content submitted alongside the images to a VLM provider."""
+    normalized_query = (textual_query or "").strip()
+    if normalized_query:
+        prompt = f"User question: {normalized_query}\nGenerate retrieval-query formulations."
+    else:
+        prompt = (
+            "No user question was supplied. Inspect the screenshot and generate "
+            "feature-identification retrieval-query formulations."
+        )
+    normalized_context = (visual_context or "").strip()
+    if normalized_context:
+        return f"{prompt}\n\nAuxiliary visual evidence:\n{normalized_context}"
+    return prompt
+
+
 class CandidateQueryError(RuntimeError):
     """Base error raised when candidate queries cannot be generated."""
 
@@ -45,8 +61,9 @@ class CandidateQueryGenerator(ABC):
         textual_query: str | None = None,
         output_trace: bool | None = None,
         visual_context: str | None = None,
+        additional_image_paths: list[str | Path] | None = None,
     ) -> CandidateQueryResult:
-        """Generate queries with optional normalized visual evidence for the provider prompt."""
+        """Generate queries with optional evidence and ordered supplemental images."""
 
     @staticmethod
     def read_image_metadata(image_path: str | Path) -> ImageMetadata:

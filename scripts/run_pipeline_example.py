@@ -77,6 +77,10 @@ def main() -> int:
     print("VLM input signals")
     print("=" * 17)
     print(f"User question: {result.vlm_input['textual_query'] or 'None supplied'}\n")
+    print(f"Input mode: {result.vlm_input['input_mode']}")
+    for image in result.vlm_input["images"]:
+        print(f"- {image['role']}: {image['path']}")
+    print()
     print(result.vlm_input["auxiliary_visual_evidence"])
     print("\nVLM output")
     print("=" * 10)
