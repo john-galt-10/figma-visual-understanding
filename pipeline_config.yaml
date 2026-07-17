@@ -89,7 +89,7 @@ pipeline:
 candidate_queries:
   enabled: true
   # Select the visual input supplied to the VLM: vanilla, segmented, or hybrid.
-  input_mode: vanilla
+  input_mode: hybrid
   provider: gemini
   model: gemini-3.1-flash-lite
   api_key_environment_variable: GEMINI_API_KEY
@@ -103,13 +103,16 @@ candidate_queries:
     most prominent relevant control or feature and phrase queries such as "What is
     this button in Figma?" or "How does this slider work in Figma?".
 
-    Use the screenshot together with the supplied auxiliary visual evidence,
+    Use the screenshot(s) together with the supplied auxiliary visual evidence,
     including OCR-visible text and detected icon names. Treat this evidence as
     useful grounding and rely on it unless it is clearly inconsistent with the
     screenshot or internally contradictory. Do not disregard detector evidence
     merely because it is incomplete: icon detection focuses on icons that commonly
     appear without accompanying explanatory text, so an icon may be absent from
     the detected-icon list even when it is visible in the screenshot.
+
+    Follow any input-description instructions in the user prompt when interpreting
+    one or more supplied images.
 
     Do not answer the user question, describe the image, or invent UI labels that
     are not visible or strongly supported by the screenshot or auxiliary evidence.

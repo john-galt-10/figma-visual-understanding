@@ -24,6 +24,7 @@ class InputModeSelection:
 
     input_mode: str
     images: list[VlmImageInput]
+    input_description: str
     evidence_block: str
     annotated_image_path: Path | None
     numbered_icon_mapping: dict[str, str]
@@ -33,6 +34,7 @@ class InputModeStrategy(ABC):
     """Define how one VLM input mode prepares images and icon prompt evidence."""
 
     mode_name: str
+    input_description: str
 
     @abstractmethod
     def prepare(
@@ -47,9 +49,10 @@ class InputModeStrategy(ABC):
 
 
 class VanillaInputMode(InputModeStrategy):
-    """Provide the source screenshot and the legacy ordered icon-name evidence."""
+    """Provide the source screenshot and legacy ordered icon-name evidence."""
 
     mode_name = "vanilla"
+    input_description = "You are given one original Figma screenshot."
 
     def prepare(
         self,
@@ -63,7 +66,12 @@ class VanillaInputMode(InputModeStrategy):
         return InputModeSelection(
             input_mode=self.mode_name,
             images=[VlmImageInput(path=image_path, role="original_screenshot")],
-            evidence_block=_render_evidence(ocr_signal, accepted_matches, numbered=False),
+            input_description=self.input_description,
+            evidence_block=_render_evidence(
+                ocr_signal,
+                accepted_matches,
+                numbered=False,
+            ),
             annotated_image_path=None,
             numbered_icon_mapping={},
         )
@@ -103,7 +111,12 @@ class NumberedOverlayInputMode(InputModeStrategy):
         return InputModeSelection(
             input_mode=self.mode_name,
             images=self._images(image_path, annotated_image_path),
-            evidence_block=_render_evidence(ocr_signal, numbered_matches, numbered=True),
+            input_description=self.input_description,
+            evidence_block=_render_evidence(
+                ocr_signal,
+                numbered_matches,
+                numbered=True,
+            ),
             annotated_image_path=annotated_image_path,
             numbered_icon_mapping=mapping,
         )
@@ -117,6 +130,12 @@ class SegmentedInputMode(NumberedOverlayInputMode):
     """Replace the screenshot with its accepted-icon numbered overlay."""
 
     mode_name = "segmented"
+    input_description = (
+        "You are given one annotated Figma screenshot. Numbered boxes highlight only "
+        "icon detections accepted by the icon matcher. The detected-icon list below maps "
+        "each number to its detector-suggested icon name; use it to locate the highlighted "
+        "icon and correct the name only when the image clearly disagrees."
+    )
 
     def _images(self, image_path: Path, annotated_image_path: Path) -> list[VlmImageInput]:
         """Send only the annotated screenshot to the VLM."""
@@ -127,6 +146,14 @@ class HybridInputMode(NumberedOverlayInputMode):
     """Send source context first and the accepted-icon overlay second."""
 
     mode_name = "hybrid"
+    input_description = (
+        "You are given two related Figma screenshots: first the original screenshot, then "
+        "an annotated version of the same screenshot. Numbered boxes in the annotated image "
+        "highlight only icon detections accepted by the icon matcher. Use the original image "
+        "for unobscured UI details and broader context. The detected-icon list below maps each "
+        "number to its detector-suggested icon name; use it to locate the highlighted icon and "
+        "correct the name only when the image clearly disagrees."
+    )
 
     def _images(self, image_path: Path, annotated_image_path: Path) -> list[VlmImageInput]:
         """Keep the original screenshot before its annotation for provider ordering."""
@@ -150,9 +177,11 @@ def create_input_mode_strategy(input_mode: str) -> InputModeStrategy:
 
 
 def _render_evidence(
-    ocr_signal: dict[str, Any], matches: list[dict[str, Any]], numbered: bool
+    ocr_signal: dict[str, Any],
+    matches: list[dict[str, Any]],
+    numbered: bool,
 ) -> str:
-    """Render OCR plus legacy names or overlay-number mappings for the VLM prompt."""
+    """Render only OCR and icon observations for the user prompt evidence section."""
     lines = ["OCR-visible text:"]
     lines.extend(f"- {text}" for text in ocr_signal["visible_text"])
     if not ocr_signal["visible_text"]:
@@ -169,13 +198,6 @@ def _render_evidence(
         )
         if not matches:
             lines.append("- None detected or icon matching disabled.")
-        lines.extend(
-            [
-                "",
-                "Use each number to locate its corresponding highlighted icon. "
-                "Treat the mapped name as detector evidence and correct it only when the image clearly disagrees.",
-            ]
-        )
     else:
         lines.extend(["", "Detected icons (top-left to bottom-right):"])
         lines.extend(f"- {match['detected_icon_name']}" for match in matches)

@@ -44,6 +44,7 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         textual_query: str | None = None,
         output_trace: bool | None = None,
         visual_context: str | None = None,
+        input_description: str | None = None,
         additional_image_paths: list[str | Path] | None = None,
     ) -> CandidateQueryResult:
         """Send ordered screenshot inputs and optional user intent to Gemini as JSON queries."""
@@ -54,7 +55,11 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         normalized_textual_query = self._normalize_textual_query(textual_query)
         api_key = self._load_api_key()
         client, types = self._create_client(api_key)
-        prompt = build_user_prompt(normalized_textual_query, visual_context)
+        prompt = build_user_prompt(
+            normalized_textual_query,
+            visual_context,
+            input_description,
+        )
         should_output_reasoning = self._should_output_reasoning(output_trace)
         response_schema = (
             QueryResponseWithReasoning if should_output_reasoning else QueryResponse

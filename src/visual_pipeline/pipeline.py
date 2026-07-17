@@ -77,11 +77,21 @@ class VisualSignalPipeline:
                 if mode_selection.annotated_image_path is not None else None
             ),
             "numbered_icon_mapping": mode_selection.numbered_icon_mapping,
+            "input_description": mode_selection.input_description,
             "auxiliary_visual_evidence": mode_selection.evidence_block,
             "system_prompt": self.settings.candidate_queries.system_instruction,
-            "user_prompt": build_user_prompt(normalized_query, mode_selection.evidence_block),
+            "user_prompt": build_user_prompt(
+                normalized_query,
+                mode_selection.evidence_block,
+                mode_selection.input_description,
+            ),
         }
-        output = self._run_vlm(mode_selection.images, normalized_query, mode_selection.evidence_block)
+        output = self._run_vlm(
+            mode_selection.images,
+            normalized_query,
+            mode_selection.evidence_block,
+            mode_selection.input_description,
+        )
         return PipelineResult(
             input=input_payload,
             signals=signals,
@@ -221,7 +231,11 @@ class VisualSignalPipeline:
         return matched, retained
 
     def _run_vlm(
-        self, images: list[VlmImageInput], textual_query: str | None, evidence_block: str
+        self,
+        images: list[VlmImageInput],
+        textual_query: str | None,
+        evidence_block: str,
+        input_description: str,
     ) -> dict[str, Any]:
         """Generate retrieval queries only when the VLM component is enabled."""
         settings = self.settings.candidate_queries
@@ -232,6 +246,7 @@ class VisualSignalPipeline:
                 images[0].path,
                 textual_query,
                 visual_context=evidence_block,
+                input_description=input_description,
                 additional_image_paths=[image.path for image in images[1:]],
             )
         except (CandidateQueryError, ValueError) as error:
