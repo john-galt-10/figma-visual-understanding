@@ -89,7 +89,7 @@ pipeline:
 candidate_queries:
   enabled: true
   # Select the visual input supplied to the VLM: vanilla, segmented, or hybrid.
-  input_mode: hybrid
+  input_mode: vanilla
   provider: gemini
   model: gemini-3.1-flash-lite
   api_key_environment_variable: GEMINI_API_KEY

@@ -10,6 +10,9 @@ PyYAML>=6.0.0
 python-dotenv>=1.0.0
 google-genai>=1.0.0
 
+# Local interface for creating visual-query evaluation annotations.
+gradio>=5.0.0
+
 # OCR baselines. PaddlePaddle 3.3.x has a CPU oneDNN/PIR inference regression;
 # keep new environments on the latest known stable 3.2.x line.
 paddlepaddle>=3.2.0,<3.3.0

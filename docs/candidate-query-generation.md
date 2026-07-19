@@ -2,6 +2,16 @@
 
 The `src/candidate_queries` package turns a Figma screenshot, and optionally a user question, into a small list of queries for the companion textual RAG system. It is intentionally separate from OCR: a configured vision-language provider receives the screenshot directly and returns a Pydantic-validated result that is easy to inspect or persist.
 
+## User intent categories
+
+Use the following minimal categories when annotating the intent of a user question:
+
+- `identify_and_define`: What is this element, and what is its basic purpose?
+- `how_to`: How to perform an action, configure something, find a control, or use a shortcut.
+- `explain_behavior`: Why a specific state, effect, or UI behavior occurs—for example, why a control is disabled.
+- `troubleshoot`: How to fix unexpected or incorrect behavior.
+- `compare`: Difference between two elements, features, modes, or approaches.
+
 ## Setup
 
 Install the project dependencies in the `figma-navigator` Python 3.11 environment:
