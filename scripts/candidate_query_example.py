@@ -26,6 +26,7 @@ def parse_arguments() -> argparse.Namespace:
         help="Path to a PNG, JPEG, WebP, BMP, or TIFF Figma screenshot.",
     )
     parser.add_argument(
+        "--config-path",
         "--config",
         type=Path,
         default=REPOSITORY_ROOT / "query_gen_config.yaml",
