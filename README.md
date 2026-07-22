@@ -106,6 +106,8 @@ The implementation philosophy is:
   Added one configurable OCR, icon-matching, and candidate-query pipeline that provides ordered, inspectable visual evidence to the VLM, supports token-free signal inspection, and writes a unified JSON artifact.
 * **2026-07-17: Configurable VLM input modes**
   Added vanilla, segmented, and hybrid screenshot inputs so VLM experiments can ground accepted icon detections in retained numbered overlays.
+* **2026-07-19: Human query-evaluation support**
+  Added timestamped candidate-query artifacts with configuration snapshots and a resumable human-review UI for target correctness, intent preservation, grounding, and standalone quality.
 
 ## Repository intent
 

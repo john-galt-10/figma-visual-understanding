@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "figma-visual-understanding"
+version = "0.0.0"
+description = "Inspectable visual-signal pipelines for Figma screenshots."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26.0",
+    "opencv-python>=4.10.0",
+    "Pillow>=10.0.0",
+    "pydantic>=2.0.0",
+    "PyYAML>=6.0.0",
+]
+
+[project.optional-dependencies]
+gemini = [
+    "google-genai>=1.0.0",
+    "python-dotenv>=1.0.0",
+]
+paddle-ocr = [
+    "paddleocr>=3.0.0",
+    "paddlepaddle>=3.2.0,<3.3.0",
+]
+easy-ocr = ["easyocr>=1.7.2"]
+review-ui = ["gradio>=5.0.0"]
+all = [
+    "easyocr>=1.7.2",
+    "google-genai>=1.0.0",
+    "gradio>=5.0.0",
+    "paddleocr>=3.0.0",
+    "paddlepaddle>=3.2.0,<3.3.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = [
+    "candidate_queries*",
+    "icon_matching*",
+    "ocr*",
+    "visual_pipeline*",
+]
