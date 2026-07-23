@@ -8,8 +8,14 @@ from typing import Any
 
 from PIL import Image
 
-from candidate_queries.base import CandidateQueryError, build_user_prompt
+from candidate_queries.base import CandidateQueryError, CandidateQueryGenerator, build_user_prompt
+from candidate_queries.context import (
+    CONTEXT_SYSTEM_INSTRUCTION,
+    PreparedContextInput,
+    prepare_context_input,
+)
 from candidate_queries.factory import create_candidate_query_generator
+from candidate_queries.models import FocusBox
 from icon_matching.candidate_generation.base import CandidateGenerationError
 from icon_matching.candidate_generation.pipeline import IconCandidateGenerator
 from icon_matching.matching.base import IconMatchingError
@@ -41,11 +47,28 @@ class VisualSignalPipeline:
         textual_query: str | None = None,
         save_icon_crops: bool = False,
         output_directory: str | Path | None = None,
+        context_image_path: str | Path | None = None,
+        focus_bbox: FocusBox | None = None,
     ) -> PipelineResult:
         """Run enabled signals, optionally generate queries, and return the inspection artifact."""
         image_file = Path(image_path).expanduser().resolve()
         normalized_query = textual_query.strip() if textual_query and textual_query.strip() else None
+        try:
+            prepared_context = prepare_context_input(
+                context_image_path,
+                focus_bbox,
+                output_directory,
+            )
+        except CandidateQueryError as error:
+            raise VisualPipelineError(f"Unable to prepare context input: {error}") from error
         input_payload = {"image_path": str(image_file), "textual_query": normalized_query}
+        if prepared_context is not None:
+            input_payload["context_image_path"] = prepared_context.context_input.source_image.path
+            input_payload["focus_bbox"] = (
+                prepared_context.context_input.focus_bbox.model_dump()
+                if prepared_context.context_input.focus_bbox is not None
+                else None
+            )
         ocr_signal = self._run_ocr(image_file)
         icon_signal, candidate_mapping, retained_crops, matches = self._run_icon_matching(
             image_file, save_icon_crops, output_directory
@@ -65,32 +88,51 @@ class VisualSignalPipeline:
             )
         except ValueError as error:
             raise VisualPipelineError(f"Unable to prepare input_mode '{input_mode}': {error}") from error
+        submitted_images, input_description = self._contextualize_images(
+            image_file,
+            mode_selection.images,
+            mode_selection.input_description,
+            prepared_context,
+        )
         signals = {"ocr": ocr_signal, "icons": icon_signal}
         vlm_input = {
             "textual_query": normalized_query,
             "input_mode": mode_selection.input_mode,
             "images": [
-                {"role": image.role, "path": str(image.path)} for image in mode_selection.images
+                {"role": image.role, "path": str(image.path)} for image in submitted_images
             ],
             "annotated_image_path": (
                 str(mode_selection.annotated_image_path)
                 if mode_selection.annotated_image_path is not None else None
             ),
             "numbered_icon_mapping": mode_selection.numbered_icon_mapping,
-            "input_description": mode_selection.input_description,
+            "input_description": input_description,
             "auxiliary_visual_evidence": mode_selection.evidence_block,
             "system_prompt": self.settings.candidate_queries.system_instruction,
             "user_prompt": build_user_prompt(
                 normalized_query,
                 mode_selection.evidence_block,
-                mode_selection.input_description,
+                input_description,
             ),
         }
+        if prepared_context is not None:
+            vlm_input["context_input"] = self._context_artifact(
+                image_file,
+                prepared_context,
+                submitted_images,
+                input_description,
+                mode_selection.evidence_block,
+                f"{self.settings.candidate_queries.system_instruction}\n\n{CONTEXT_SYSTEM_INSTRUCTION}",
+            )
         output = self._run_vlm(
-            mode_selection.images,
+            submitted_images,
             normalized_query,
             mode_selection.evidence_block,
-            mode_selection.input_description,
+            input_description,
+            context_image_path,
+            focus_bbox,
+            output_directory,
+            prepared_context,
         )
         return PipelineResult(
             input=input_payload,
@@ -236,6 +278,10 @@ class VisualSignalPipeline:
         textual_query: str | None,
         evidence_block: str,
         input_description: str,
+        context_image_path: str | Path | None,
+        focus_bbox: FocusBox | None,
+        output_directory: str | Path | None,
+        prepared_context: PreparedContextInput | None,
     ) -> dict[str, Any]:
         """Generate retrieval queries only when the VLM component is enabled."""
         settings = self.settings.candidate_queries
@@ -247,17 +293,105 @@ class VisualSignalPipeline:
                 textual_query,
                 visual_context=evidence_block,
                 input_description=input_description,
-                additional_image_paths=[image.path for image in images[1:]],
+                additional_image_paths=[
+                    image.path for image in (images[2:] if prepared_context is not None else images[1:])
+                ],
+                context_image_path=context_image_path,
+                focus_bbox=focus_bbox,
+                context_artifact_directory=output_directory,
+                prepared_context_input=prepared_context,
             )
         except (CandidateQueryError, ValueError) as error:
             raise VisualPipelineError(f"Enabled VLM stage failed: {error}") from error
-        return {
+        output = {
             "vlm_enabled": True,
             "generator": result.generator.model_dump(),
             "retrieval_queries": result.retrieval_queries,
             "reasoning_summary": result.reasoning_summary,
             "processing_time_seconds": result.processing_time_seconds,
             "metadata": result.metadata,
+        }
+        if result.screen_context is not None:
+            output["screen_context"] = result.screen_context.model_dump()
+        return output
+
+    @staticmethod
+    def _contextualize_images(
+        focused_image: Path,
+        mode_images: list[VlmImageInput],
+        mode_input_description: str,
+        prepared_context: PreparedContextInput | None,
+    ) -> tuple[list[VlmImageInput], str]:
+        """Insert optional context after the focused target while preserving crop-only mode behavior."""
+        if prepared_context is None:
+            return mode_images, mode_input_description
+        mode_specific_images = [image for image in mode_images if image.path != focused_image]
+        context_role = (
+            "annotated_context_screenshot"
+            if prepared_context.context_input.annotated_context_image_path is not None
+            else "context_screenshot"
+        )
+        images = [
+            VlmImageInput(path=focused_image, role="focused_screenshot"),
+            VlmImageInput(path=prepared_context.submission_path, role=context_role),
+            *mode_specific_images,
+        ]
+        focus_description = (
+            "The second image is a full-screen context screenshot with a subtle rectangle "
+            "showing where the focused target appears."
+            if prepared_context.context_input.focus_bbox is not None
+            else "The second image is a full-screen context screenshot."
+        )
+        overlay_description = (
+            " The third image, when present, is a detection overlay for the focused target. "
+            "Its numbered boxes map to detected icon names in Auxiliary visual evidence."
+            if mode_specific_images
+            else ""
+        )
+        return (
+            images,
+            "Images are ordered: the first image is the focused screenshot and primary target "
+            f"for retrieval queries. {focus_description} Use it only to clarify surrounding "
+            f"state or panels, not as a separate target.{overlay_description}",
+        )
+
+    @staticmethod
+    def _context_artifact(
+        focused_image: Path,
+        prepared_context: PreparedContextInput,
+        images: list[VlmImageInput],
+        input_description: str,
+        evidence_block: str,
+        effective_system_instruction: str,
+    ) -> dict[str, Any]:
+        """Build the stable context metadata object retained in each context-enabled artifact."""
+        return {
+            "focused_source_path": str(focused_image),
+            "context_source_path": prepared_context.context_input.source_image.path,
+            "context_dimensions": {
+                "width": prepared_context.context_input.source_image.width,
+                "height": prepared_context.context_input.source_image.height,
+            },
+            "focus_bbox": (
+                prepared_context.context_input.focus_bbox.model_dump()
+                if prepared_context.context_input.focus_bbox is not None
+                else None
+            ),
+            "annotated_context_image_path": prepared_context.context_input.annotated_context_image_path,
+            "submitted_images": [
+                {
+                    "role": image.role,
+                    "path": str(image.path),
+                    "dimensions": {
+                        "width": CandidateQueryGenerator.read_image_metadata(image.path).width,
+                        "height": CandidateQueryGenerator.read_image_metadata(image.path).height,
+                    },
+                }
+                for image in images
+            ],
+            "effective_system_instruction": effective_system_instruction,
+            "input_description": input_description,
+            "auxiliary_visual_evidence": evidence_block,
         }
 
 

@@ -7,7 +7,7 @@ from pathlib import Path
 
 from PIL import Image, UnidentifiedImageError
 
-from .models import CandidateQueryResult, ImageMetadata
+from .models import CandidateQueryResult, FocusBox, ImageMetadata
 
 
 SUPPORTED_IMAGE_FORMATS = frozenset({"PNG", "JPEG", "WEBP", "BMP", "TIFF"})
@@ -70,8 +70,11 @@ class CandidateQueryGenerator(ABC):
         visual_context: str | None = None,
         input_description: str | None = None,
         additional_image_paths: list[str | Path] | None = None,
+        context_image_path: str | Path | None = None,
+        focus_bbox: FocusBox | None = None,
+        context_artifact_directory: str | Path | None = None,
     ) -> CandidateQueryResult:
-        """Generate queries with optional evidence and ordered supplemental images."""
+        """Generate queries with optional evidence, context, and ordered supplemental images."""
 
     @staticmethod
     def read_image_metadata(image_path: str | Path) -> ImageMetadata:

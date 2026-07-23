@@ -17,6 +17,7 @@ sys.path.insert(0, str(REPOSITORY_ROOT / "src"))
 
 from visual_pipeline.config import PipelineConfigurationError, load_settings  # noqa: E402
 from visual_pipeline.pipeline import VisualPipelineError, VisualSignalPipeline  # noqa: E402
+from candidate_queries.models import FocusBox  # noqa: E402
 
 
 DEFAULT_INPUT_PATH = REPOSITORY_ROOT / "annotation" / "visual_query_annotations.jsonl"
@@ -89,7 +90,26 @@ def load_annotations(input_path: Path) -> list[dict[str, Any]]:
         if missing_or_invalid:
             fields = ", ".join(missing_or_invalid)
             raise ValueError(f"Invalid annotation schema in {input_path} at line {line_number}: {fields}.")
-        annotations.append(record)
+        context_image_path = record.get("context_image_path")
+        if context_image_path is not None and (
+            not isinstance(context_image_path, str) or not context_image_path.strip()
+        ):
+            raise ValueError(
+                f"Invalid optional context_image_path in {input_path} at line {line_number}."
+            )
+        focus_bbox = record.get("focus_bbox")
+        if focus_bbox is not None:
+            if not isinstance(focus_bbox, dict):
+                raise ValueError(f"focus_bbox must be an object in {input_path} at line {line_number}.")
+            try:
+                FocusBox.model_validate(focus_bbox)
+            except ValueError as error:
+                raise ValueError(f"Invalid focus_bbox in {input_path} at line {line_number}: {error}") from error
+            if context_image_path is None:
+                raise ValueError(
+                    f"focus_bbox requires context_image_path in {input_path} at line {line_number}."
+                )
+        annotations.append({**record, "context_enabled": context_image_path is not None})
     if not annotations:
         raise ValueError(f"Input annotation file contains no records: {input_path}")
     return annotations
@@ -101,6 +121,18 @@ def resolve_image_path(annotation_path: str) -> Path:
     if not path.is_absolute():
         path = REPOSITORY_ROOT / path
     return path.resolve()
+
+
+def resolve_context_image_path(annotation: dict[str, Any]) -> Path | None:
+    """Resolve an optional evaluation context screenshot using the annotation path convention."""
+    context_image_path = annotation.get("context_image_path")
+    return resolve_image_path(context_image_path) if isinstance(context_image_path, str) else None
+
+
+def parse_focus_bbox(annotation: dict[str, Any]) -> FocusBox | None:
+    """Build the typed optional focus rectangle stored in one evaluation annotation."""
+    focus_bbox = annotation.get("focus_bbox")
+    return FocusBox.model_validate(focus_bbox) if isinstance(focus_bbox, dict) else None
 
 
 def default_output_directory(input_path: Path, timestamp: str) -> Path:
@@ -148,6 +180,8 @@ def build_record(
 ) -> dict[str, Any]:
     """Create one evaluable success or failure record without annotation dependencies."""
     image_path = resolve_image_path(annotation["image_path"])
+    context_image_path = resolve_context_image_path(annotation)
+    context_enabled = context_image_path is not None
     record: dict[str, Any] = {
         "schema_version": "1.0",
         "status": "succeeded" if error is None else "failed",
@@ -156,7 +190,10 @@ def build_record(
         "image": {
             "annotation_image_path": annotation["image_path"],
             "resolved_image_path": str(image_path),
+            "context_annotation_image_path": annotation.get("context_image_path"),
+            "resolved_context_image_path": str(context_image_path) if context_image_path else None,
         },
+        "context_enabled": context_enabled,
         "provenance": {
             "input_annotation_path": str(input_path),
             "source_config_path": str(config_path),
@@ -203,12 +240,18 @@ def main() -> int:
         failures: list[str] = []
         results_path = temporary_output_directory / GENERATED_QUERIES_FILENAME
         with results_path.open("w", encoding="utf-8", newline="\n") as results_file:
-            retain_artifacts = arguments.save_icon_crops or settings.candidate_queries.input_mode != "vanilla"
+            retain_artifacts = (
+                arguments.save_icon_crops
+                or settings.candidate_queries.input_mode != "vanilla"
+                or any("context_image_path" in annotation for annotation in annotations)
+            )
             for index, annotation in enumerate(annotations, start=1):
                 try:
                     image_path = resolve_image_path(annotation["image_path"])
                     if not image_path.is_file():
                         raise ValueError(f"Annotation image does not exist: {image_path}")
+                    context_image_path = resolve_context_image_path(annotation)
+                    focus_bbox = parse_focus_bbox(annotation)
                     run_output_directory = artifact_output_directory(
                         temporary_output_directory, annotation, index, retain_artifacts
                     )
@@ -219,6 +262,8 @@ def main() -> int:
                         textual_query=annotation["text_query"],
                         save_icon_crops=arguments.save_icon_crops,
                         output_directory=run_output_directory,
+                        context_image_path=context_image_path,
+                        focus_bbox=focus_bbox,
                     )
                     serialized_result = relocate_artifact_paths(
                         result.to_dict(), temporary_output_directory, output_directory

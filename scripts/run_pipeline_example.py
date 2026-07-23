@@ -13,6 +13,7 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPOSITORY_ROOT / "src"))
 
 from visual_pipeline.config import PipelineConfigurationError, load_settings  # noqa: E402
+from candidate_queries.models import FocusBox  # noqa: E402
 from visual_pipeline.pipeline import VisualPipelineError, VisualSignalPipeline  # noqa: E402
 
 
@@ -22,6 +23,24 @@ def parse_arguments() -> argparse.Namespace:
         description="Build inspectable OCR/icon signals and optionally generate Figma retrieval queries."
     )
     parser.add_argument("--image-path", required=True, help="Path to a supported Figma screenshot.")
+    parser.add_argument(
+        "--context-image-path",
+        type=Path,
+        help=(
+            "Optional full-screen screenshot for surrounding context; --image-path remains "
+            "the focused retrieval target."
+        ),
+    )
+    parser.add_argument(
+        "--focus-bbox",
+        nargs=4,
+        type=int,
+        metavar=("X", "Y", "WIDTH", "HEIGHT"),
+        help=(
+            "Optional zero-based X Y WIDTH HEIGHT rectangle in --context-image-path. "
+            "The full context is annotated without obscuring the UI."
+        ),
+    )
     parser.add_argument("--text-query", help="Optional user question to refine with visual context.")
     parser.add_argument(
         "--config-path",
@@ -58,6 +77,12 @@ def main() -> int:
     output_path = arguments.output_path or _default_output_path(image_path)
     output_path = output_path.expanduser().resolve()
     try:
+        focus_bbox = FocusBox(
+            x=arguments.focus_bbox[0],
+            y=arguments.focus_bbox[1],
+            width=arguments.focus_bbox[2],
+            height=arguments.focus_bbox[3],
+        ) if arguments.focus_bbox is not None else None
         settings = load_settings(arguments.config_path)
         if arguments.no_vlm:
             settings.candidate_queries.enabled = False
@@ -66,6 +91,8 @@ def main() -> int:
             textual_query=arguments.text_query,
             save_icon_crops=arguments.save_icon_crops,
             output_directory=output_path.parent,
+            context_image_path=arguments.context_image_path,
+            focus_bbox=focus_bbox,
         )
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(
