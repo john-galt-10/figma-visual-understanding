@@ -1,7 +1,7 @@
 # Settings for the unified visual-signal pipeline.
 pipeline:
   ocr:
-    enabled: true
+    enabled: false
     engine: easy
     language: en
     # Only text detections at or above this confidence reach VLM evidence.
@@ -89,7 +89,7 @@ pipeline:
 candidate_queries:
   enabled: true
   # Select the visual input supplied to the VLM: vanilla, segmented, or hybrid.
-  input_mode: vanilla
+  input_mode: hybrid
   provider: gemini
   model: gemini-3.1-flash-lite
   api_key_environment_variable: GEMINI_API_KEY

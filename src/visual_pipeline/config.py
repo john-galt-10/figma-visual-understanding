@@ -51,7 +51,17 @@ def load_settings(config_path: str | Path) -> ApplicationSettings:
         raise PipelineConfigurationError(f"Configuration file does not exist: {path}")
     try:
         with path.open("r", encoding="utf-8") as config_file:
-            return ApplicationSettings.model_validate(yaml.safe_load(config_file) or {})
+            payload = yaml.safe_load(config_file) or {}
+            if not isinstance(payload, dict):
+                raise PipelineConfigurationError(
+                    f"Configuration must be a mapping: {path}"
+                )
+            visual_settings = payload.get("visual-understanding", payload)
+            if not isinstance(visual_settings, dict):
+                raise PipelineConfigurationError(
+                    "visual-understanding must be a mapping when provided."
+                )
+            return ApplicationSettings.model_validate(visual_settings)
     except (OSError, yaml.YAMLError, ValidationError) as error:
         raise PipelineConfigurationError(
             f"Invalid pipeline configuration in '{path}': {error}"
