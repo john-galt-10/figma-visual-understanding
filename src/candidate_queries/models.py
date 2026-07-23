@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -24,16 +24,37 @@ class FocusBox(BaseModel):
     height: int = Field(gt=0, description="Positive focus-box height in pixels.")
 
 
+class UiLocation(BaseModel):
+    """Locate the focused target within the visibly shown Figma interface hierarchy."""
+
+    screen_region: Literal["left_sidebar", "right_sidebar", "toolbar"] | None = Field(
+        default=None,
+        description="Screen region containing the focused target, when visibly supported.",
+    )
+    top_level_tab: str | None = Field(
+        default=None,
+        description="Visible top-level Figma tab containing the target, such as Design or Prototype.",
+    )
+    section: str | None = Field(
+        default=None,
+        description="Visible section heading containing the target, such as Appearance, Layout, or Fill.",
+    )
+    control: str | None = Field(
+        default=None,
+        description="Visible control label or name for the focused target, such as Rotation, Opacity, Color.",
+    )
+
+
 class ScreenContext(BaseModel):
-    """Store optional, observable context inferred from the full screenshot."""
+    """Store optional, observable screen context inferred from the full screenshot."""
 
     selected_layer_type: str | None = Field(
         default=None,
-        description="Generic visible selected-layer type, such as rectangle; never a layer name.",
+        description="Generic visible selected-layer type, such as polygon; never a layer name.",
     )
-    referenced_panel: str | None = Field(
+    ui_location: UiLocation | None = Field(
         default=None,
-        description="Visible Figma panel name when it helps identify the focused target.",
+        description="Visible Figma interface location of the focused target, when observable.",
     )
     visible_evidence_summary: str | None = Field(
         default=None,
@@ -46,11 +67,11 @@ class ContextQueryResponse(QueryResponse):
 
     selected_layer_type: str | None = Field(
         default=None,
-        description="Generic visible selected-layer type, such as rectangle; never a Figma layer name.",
+        description="Generic visible selected-layer type, such as polygon; never a layer name.",
     )
-    referenced_panel: str | None = Field(
+    ui_location: UiLocation | None = Field(
         default=None,
-        description="Visible Figma panel name when relevant to the focused target.",
+        description="Visible screen region, tab, section, and control for the focused target.",
     )
     visible_evidence_summary: str | None = Field(
         default=None,

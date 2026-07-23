@@ -14,8 +14,8 @@ from .models import ContextInput, FocusBox, ImageMetadata
 CONTEXT_SYSTEM_INSTRUCTION = """
 When multiple images are provided, follow the image roles defined in the Input description.
 Treat the focused target image as the sole subject of retrieval queries. Use any full-screen
-context image only to clarify visible state, selected-layer type, or referenced panel. Do not
-make unrelated controls elsewhere on the screen the target.
+context image only to clarify the selected layer's generic type, the focused target's visible UI
+location and the visible state. Do not make unrelated controls elsewhere on the screen the target.
 
 When a detection overlay is provided, use its numbered boxes together with the detected-icon
 mapping in Auxiliary visual evidence to identify the highlighted icons.

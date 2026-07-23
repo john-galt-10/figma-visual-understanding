@@ -219,7 +219,7 @@ class GeminiCandidateQueryGenerator(CandidateQueryGenerator):
         """Normalize the context-only response fields into the public result record."""
         return ScreenContext(
             selected_layer_type=getattr(query_response, "selected_layer_type", None),
-            referenced_panel=getattr(query_response, "referenced_panel", None),
+            ui_location=getattr(query_response, "ui_location", None),
             visible_evidence_summary=getattr(query_response, "visible_evidence_summary", None),
         )
 
